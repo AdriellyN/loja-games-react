@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
 import Produto from "../../../models/Produto";
 import { Pencil, Trash } from "@phosphor-icons/react";
+import { useContext } from "react";
+import { CartContext } from "../../../contexts/CartContext";
 
 interface CardProdutoProps {
     produto: Produto
 }
 
 function CardProdutos({ produto }: CardProdutoProps) {
+
+    const { adicionarProduto } = useContext(CartContext)
+
     return (
         <div className="flex flex-col justify-between my-10 overflow-hidden bg-white rounded-lg">
             <div className="flex items-end justify-end pt-2 pr-2">
@@ -50,6 +55,7 @@ function CardProdutos({ produto }: CardProdutoProps) {
             <div className="flex flex-wrap">
                 <button
                     className="flex items-center justify-center w-full py-2 text-white bg-teal-500 hover:bg-teal-900"
+                    onClick={() => adicionarProduto(produto)}
                 >
                     Comprar
                 </button>

@@ -1,13 +1,16 @@
 
 import { MagnifyingGlass, ShoppingCart, User } from "@phosphor-icons/react"
-import { ChangeEvent, FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { CartContext } from "../../contexts/CartContext"
 
 function Navbar() {
 
     const navigate = useNavigate()
 
     const [nome, setNome] = useState<string>("")
+
+    const { quantidadeItems } = useContext(CartContext)
 
     function handleBuscarProdutos(e: ChangeEvent<HTMLInputElement>) {
         setNome(e.target.value)
@@ -84,11 +87,14 @@ function Navbar() {
                             size={32}
                             weight="bold"
                         />
-
-                        <ShoppingCart
-                            size={32}
-                            weight="bold"
-                        />
+                        <Link to="/cart">
+                            <ShoppingCart size={32} weight="bold" />
+                            {quantidadeItems > 0 && (
+                                <span className="relative -top-9 -right-5 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                                    {quantidadeItems}
+                                </span>
+                            )}
+                        </Link>
                     </div>
                 </div>
             </div>
